@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Carousel Template for Bootstrap</title>
+
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{{=URL(a='icook',c='index',f='index')}}">Project name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">Nutrition</a></li>
+                <li><a href="#contact">Recettes</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{=URL('icook','admin','liste_aliments')}}">Liste aliments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{=URL('icook','admin','ajouter_aliment')}}">Ajouter aliment</a></li>
+                    <li><a href="{{=URL('icook','admin','supprimer_aliment')}}">Supprimer aliment</a></li>
+                  </ul>
+                </li>                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="container marketing">
+    {{block content}}{{end}}
+    </div>
+      <!-- FOOTER -->
+      <div class="container marketing">
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="{{=URL('icook','admin','index')}}">Zone administration</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {{
+    response.files.insert(0,URL('static','css/pace.css'))
+    response.files.insert(1,URL('static','css/bootstrap.min.css'))
+    response.files.insert(2,URL('static','css/carousel.css'))
+    response.files.insert(3,URL('static','js/pace.min.js'))
+    response.files.insert(4,URL('static','js/jquery-2.1.1.min.js'))
+    response.files.insert(5,URL('static','js/bootstrap.min.js'))
+    }}
+    {{response.include_files()}}
+
+  </body>
+</html>
