@@ -189,6 +189,7 @@
 'User %(id)s Registered': 'Utilisateur %(id)s enregistré',
 'User ID': 'ID utilisateur',
 'User Voice': "Voix de l'utilisateur",
+'Value not in database': 'Value not in database',
 'Verify Password': 'Vérifiez le mot de passe',
 'Videos': 'Vidéos',
 'View': 'Présentation',

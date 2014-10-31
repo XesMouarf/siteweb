@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'],lazy_tables=True)
+db = DAL('mysql://root:root@localhost/siteweb',pool_size=1,check_reserved=['all'],lazy_tables=True)
 
 """
 response.optimize_css = 'concat,minify,inline'

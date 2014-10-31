@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+{{block content}}
+{{if response.flash:}}
+<div class="alert alert-{{=response.type}} fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <strong>{{=response.flash}}</strong>
+</div>
+{{pass}}
+<div class="container">
+  <h1>Liste des catégories</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>kCals</th>
+        <th>Protéines</th>
+        <th>Glucides</th>
+        <th>Lipides</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{for categorie in liste_categories:}}
+      <tr>
+        <td>{{=categorie.name}}</td>
+      </tr>
+      {{pass}}
+    </tbody>
+  </table>
+</div>
+	{{end}}
