@@ -36,18 +36,69 @@ body {
 }
 
 .recipe-title {
-	height: 50px;
 	background-color: #383838;
-	padding: 5px;
+	height: 40px;
+	text-align: center;
 }
 
-.recipe-title > h2 {
-	margin-top: 0px;
+.recipe-title h2,h3 {
+	margin: 0px;
+	padding: 5px;
+	text-align: center;
 }
-.recipe-title > h2 > a{
+
+.recipe-title h2 a{
 	color: white;
 	text-decoration: none;
+	text-align: center;
 }
+
 .recipe-wrapper {
 	background-color: white;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	height: 375px;
+}
+
+.recipe-left {
+	position: relative;
+	float: left;
+	width: 70%;
+	height: 375px;
+	margin-right: 5px;
+}
+
+.recipe-right {
+	position: relative;
+	float: right;
+	width: 28%;
+	height: 375px;
+	text-align: center;
+}
+
+.recipe-empty {
+	background-color: #383838;
+	height: 40px;
+}
+
+.recipe-other {
+	background-color: #383838;
+	height: 335px;
+}
+
+
+
+.en-tete {
+	margin-top: 10px;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
 }

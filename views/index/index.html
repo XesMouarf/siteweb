@@ -1,27 +1,81 @@
 {{extend 'layout.html'}}
-{{include 'carousel.html'}}
 
+  {{block head}}
+
+  {{for recette in liste_recettes:}}
+  <script>
+  // Get context with jQuery - using jQuery's .get() method.
+  var ctx = $("#recipe{{=recette['id']}}").get(0).getContext("2d");
+  var data = [
+    {
+        value: {{=recette['proteines']}},
+        color:"#EA9999",
+        highlight: "#990000",
+        label: "Protéines"
+    },
+    {
+        value: {{=recette['glucides']}},
+        color: "#FFE599",
+        highlight: "#BF9000",
+        label: "Glucides"
+    },
+    {
+        value: {{=recette['lipides']}},
+        color: "#B4A7D6",
+        highlight: "#351C75",
+        label: "Lipides"
+    }
+];
+  // This will get the first returned node in the jQuery collection.
+  var myPieChart = new Chart(ctx).Pie(data);
+  </script>
+  {{pass}}
+  {{end}}
 	{{block content}}
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
+        <div class="col-lg-12 en-tete">
+          <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">Les mieux notées</a></li>
+            <li role="presentation"><a href="#">Rapides</a></li>
+            <li role="presentation"><a href="#">De saison</a></li>
+            <li role="presentation"><a href="#">Au hasard</a></li>
+          </ul>
+        </div>
         {{for recette in liste_recettes:}}
         <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
           <div class="recipe-wrapper">
-            <a href="{{=recette['href']}}"><img src="{{=recette['img']}}" alt="{{=recette['img_alt']}}"></a>
-            <div class="recipe-title">
-              <h2><a href="{{=recette['href']}}">{{=recette['titre']}}</a><span class="pull-right">{{=recette['type']}}</span></h2>
+            <div class="recipe-left">
+              <div class="recipe-title">
+                <h2><a href="{{=recette['href']}}">{{=recette['titre']}}</a></h2>
+              </div>
+              <div class="recipe-image">
+                <a href="{{=recette['href']}}"><img src="{{=recette['img']}}" alt="{{=recette['img_alt']}}" class="img-responsive"></a>
+              </div>
             </div>
-            <p>{{=recette['proteines']}}P | {{=recette['glucides']}}G | {{=recette['lipides']}}L <span class="pull-right">{{=recette['kcals']}}kcals</span></p>
-            <p><span class="glyphicon glyphicon-time"></span> {{=recette['temps']}}</p>
-            <!-- Note -->
-            <p>{{for i in range(0,recette['note']):}}
-               <span class="glyphicon glyphicon-star"></span>
-               {{pass}}
-               {{for i in range(recette['note'],5):}}
-               <span class="glyphicon glyphicon-star-empty"></span>
-               {{pass}}
-            </p>
-            <p><a class="btn btn-default" href="{{=recette['href']}}" role="button">{{=T('See the recipe')}} &raquo;</a></p>
+            <div class="recipe-right">
+              <div class="recipe-empty">
+                <h3>{{=recette['kcals']}} kcals</h3>
+              </div>
+              <div class="recipe-other">
+                <p><canvas id="recipe{{=recette['id']}}" width="75" height="75"></canvas></p>
+                <p><span class="glyphicon glyphicon-time"></span> Préparation: <br/>{{=recette['temps']}}</p>
+                <p><span class="glyphicon glyphicon-time"></span> Cuisson:<br/>{{=recette['temps']}}</p>
+                <p>
+                {{for hashtag in recette['liste_hashtag']:}}
+                {{=hashtag}}
+                {{pass}} 
+                </p>
+                <!-- Note -->
+                <p>{{for i in range(0,recette['note']):}}
+                   <span class="glyphicon glyphicon-star"></span>
+                   {{pass}}
+                   {{for i in range(recette['note'],5):}}
+                   <span class="glyphicon glyphicon-star-empty"></span>
+                   {{pass}}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         {{pass}}

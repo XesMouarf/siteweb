@@ -1,5 +1,5 @@
 {{extend 'layout.html'}}
-{{block content}}
+	{{block content}}
 <div class="container">
 {{if response.flash:}}
 <div class="alert alert-{{=response.type}} fade in" role="alert">
@@ -8,22 +8,21 @@
 </div>
 {{pass}}
 <p><a class="btn btn-default" href="{{=URL(c='admin',f='index')}}" >Retour à l'admin</a></p>
-  <h1>Liste des catégories</h1>
+<h1>Liste des ingrédients</h1>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nom</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{for categorie in liste_categories:}}
-      <tr>
-        <td>{{=categorie.name}}</td>
-      </tr>
-      {{pass}}
-    </tbody>
-  </table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nom</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{for categorie in liste_categories:}}
+    <tr>
+      <td>{{=categorie.name}}</td>
+    </tr>
+    {{pass}}
+  </tbody>
+</table>
 </div>
-
 	{{end}}

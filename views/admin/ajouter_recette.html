@@ -1,5 +1,18 @@
 {{extend 'layout.html'}}
-	{{block content}}
+{{block head}}
+<script type="text/javascript">
+$('.add').on('click', function() {
+    var options = $('#select_ingredients option:selected').sort().clone();
+
+    console.log(options);
+    for (i=0;i<options.length;i++){
+      $('#ingredients').append('<div class="form-group"><label class="col-sm-2 control-label">'+options[i]['innerText']+' :</label><div class="col-sm-10"><input class="string form-control" name="ingredients['+options[i]['value']+']" type="text" value="" placeholder="Quantité"></div></div>');
+    }
+
+});
+</script>
+{{end}}
+{{block content}}
 <div class="container">
 {{if response.flash:}}
 <div class="alert alert-{{=response.type}} fade in" role="alert">
@@ -9,8 +22,113 @@
 {{pass}}
   <div class="row">
     <div class="col-lg-12">
+    <p><a class="btn btn-default" href="{{=URL(c='admin',f='index')}}" >Retour à l'admin</a></p>
     <h1> Ajouter une recette</h1>
-    {{=form}}
+    
+    <form action="#" enctype="multipart/form-data" method="post" class="form-horizontal" role="form">
+    <input type="hidden" name="_form" value="_ajout_recette">
+    <!-- intitulé -->
+    <div class="form-group">
+        <label for="recette_intitule" class="col-sm-2 control-label">Intitulé :</label>
+        <div class="col-sm-10">
+          <input class="string form-control" id="recette_intitule" name="intitule" type="text" value="" placeholder="Intitulé de la recette">
+        </div>
+    </div>
+    <!-- catégories -->
+    <div class="form-group">
+      <label for="recettes-categories" class="col-sm-2 control-label">Catégories :</label>
+      <div class="col-sm-10">
+        <select name="categories" multiple class="form-control">
+        {{for categorie in liste_categories:}}
+          <option value='{{=categorie.id}}'>{{=categorie.name}}</option>
+        {{pass}}
+        </select>
+      </div>
+    </div>
+    <!-- ingrédients -->
+    <div class="form-group">
+      <label for="recettes-ingredients" class="col-sm-2 control-label">Ingrédients :</label>
+      <div class="col-sm-4">
+        <select multiple id="select_ingredients" class="form-control">
+        {{for ingredient in liste_ingredients:}}
+          <option value='{{=ingredient.id}}'>{{=ingredient.name}}</option>
+        {{pass}}
+        </select>
+      </div>
+      <div class="col-sm-1">
+      <button type="button" class="add btn btn-default">=></button>
+      <button type="button" class="del btn btn-default"><=</button>
+      </div>
+      <div class="col-sm-5">
+        <div id="ingredients">
+
+        </div>
+      </div>
+    </div>
+    <!-- tmps preparation -->
+    <div class="form-group">
+        <label for="recette_tmp_prep" class="col-sm-2 control-label">Temps de préparation :</label>
+        <div class="col-sm-10">
+          <input class="string form-control" id="recette_tmp_prep" name="temps_preparation" type="text" value="" placeholder="Temps de préparation de la recette">
+        </div>
+    </div>
+    <!-- tmps cuisson -->
+    <div class="form-group">
+        <label for="recette_tmp_cuisson" class="col-sm-2 control-label">Temps de cuisson :</label>
+        <div class="col-sm-10">
+          <input class="string form-control" id="recette_tmp_cuisson" name="temps_cuisson" type="text" value="" placeholder="Temps de cuisson de la recette">
+        </div>
+    </div>
+    <!-- tmps autre -->
+    <div class="form-group">
+        <label for="recette_tmp_autre" class="col-sm-2 control-label">Temps autre :</label>
+        <div class="col-sm-10">
+          <input class="string form-control" id="recette_tmp_autre" name="temps_autre" type="text" value="" placeholder="Autre temps de la recette">
+        </div>
+    </div>
+    <!-- kcals -->
+    <div class="form-group">
+        <label for="recette_kcals" class="col-sm-2 control-label">Kcals :</label>
+        <div class="col-sm-10">
+          <input class="integer form-control" id="recette_kcals" name="kcals" type="number" value="" placeholder="0">
+        </div>
+    </div>
+    <!-- protéines -->
+    <div class="form-group">
+        <label for="recette_proteines" class="col-sm-2 control-label">Protéines :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="recette_proteines" name="proteines" type="number" value="" placeholder="0">
+        </div>
+    </div>
+    <!-- glucides -->
+    <div class="form-group">
+        <label for="recette_glucides" class="col-sm-2 control-label">Glucides :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="recette_glucides" name="glucides" type="number" value="" placeholder="0">
+        </div>
+    </div>
+    <!-- lipides -->
+    <div class="form-group">
+        <label for="recette_lipides" class="col-sm-2 control-label">Lipides :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="recette_lipides" name="lipides" type="number" value="" placeholder="0">
+        </div>
+    </div>
+    <!-- etapes -->
+    <div class="form-group">
+      <label for="recette_etapes" class="col-sm-2 control-label">Etapes :</label>
+      <div class="col-sm-10">
+        <textarea class="text form-control" id="recette_etapes" name="etapes" type"text" value="" rows="50" placeholder="Les étapes de la recette"></textarea>
+      </div>
+    </div>
+
+
+    <!-- Validation -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Valider</button>
+      </div>
+    </div>  
     </div>
   </div>
 </div>
