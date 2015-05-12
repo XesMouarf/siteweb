@@ -30,6 +30,17 @@ db.define_table('recette',
 	Field('glucides', 'double', requires=IS_NOT_EMPTY()),
 	Field('lipides', 'double', requires=IS_NOT_EMPTY()),
 	Field('etapes', 'text', requires=IS_NOT_EMPTY()),
+	Field('note', 'integer', default=0),
+	Field('image1', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image2', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image3', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image4', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image5', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image6', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image7', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image8', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image9', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
+	Field('image10', 'upload', autodelete=True, uploadfolder='applications/siteweb/static'),
 	format=lambda r: r.intitule or None
 )
 
@@ -43,3 +54,18 @@ db.define_table('recette_has_ingredient',
 	Field('ingredient', 'reference ingredient'),
 	Field('quantite', 'string', requires=IS_NOT_EMPTY())
 )
+
+"""
+from smarthumb import SMARTHUMB
+box = (200, 200)
+Files.thumb1.compute = lambda row: SMARTHUMB(row.image1, box)
+Files.thumb2.compute = lambda row: SMARTHUMB(row.image2, box)
+Files.thumb3.compute = lambda row: SMARTHUMB(row.image3, box)
+Files.thumb4.compute = lambda row: SMARTHUMB(row.image4, box)
+Files.thumb5.compute = lambda row: SMARTHUMB(row.image5, box)
+Files.thumb6.compute = lambda row: SMARTHUMB(row.image6, box)
+Files.thumb7.compute = lambda row: SMARTHUMB(row.image7, box)
+Files.thumb8.compute = lambda row: SMARTHUMB(row.image8, box)
+Files.thumb9.compute = lambda row: SMARTHUMB(row.image9, box)
+Files.thumb10.compute = lambda row: SMARTHUMB(row.image10, box)
+"""

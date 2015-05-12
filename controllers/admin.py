@@ -31,27 +31,38 @@ def supprimer_ingredient():
         )
 
 def liste_recettes():
+    print db(db.recette).select()
     recette_has_categorie = db(
         (db.recette.id==db.recette_has_categorie.recette) & (db.categorie.id==db.recette_has_categorie.categorie)).select(groupby=db.recette_has_categorie.recette)
 
     recette_has_ingredient = db(
         (db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient)).select(groupby=db.recette_has_ingredient.recette)
-    print "recette_has_categorie"
-    print recette_has_categorie
-    print "recette_has_ingredient"
-    print recette_has_ingredient
+
     recette_complete = db(
         (db.recette.id==db.recette_has_categorie.recette) & (db.categorie.id==db.recette_has_categorie.categorie)\
         & (db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient))
+
     liste_recettes = recette_complete.select(orderby=db.recette.id)
-    print liste_recettes
+
     return dict(
         liste_recettes = liste_recettes,
         )
 
+def afficher_recette():
+    print request.args
+
+    recette = db(db.recette.id == request.args[0]).select()
+    categories = db((db.categorie.id == db.recette_has_categorie.categorie) & (db.recette.id == db.recette_has_categorie.recette) & (db.recette.id == request.args[0])).select(db.categorie.name,db.categorie.id)
+    ingredients = db((db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient) & (db.recette.id == request.args[0])).select(db.ingredient.name)
+    print ingredients
+    return dict(
+        recette = recette,
+        categories = categories,
+        ingredients = ingredients)
 def ajouter_recette():
     liste_ingredients = db(db.ingredient).select()
     liste_categories = db(db.categorie).select()
+    form = SQLFORM(db.recette)
     print request.vars
     if request.vars['_form'] == '_ajout_recette':
         liste_ingredients_recette = list()
@@ -67,7 +78,17 @@ def ajouter_recette():
             proteines=request.vars['proteines'],
             glucides=request.vars['glucides'],
             lipides=request.vars['lipides'],
-            etapes=request.vars['etapes']
+            etapes=request.vars['etapes'],
+            image1=request.vars['image1'],
+            image2=request.vars['image2'],
+            image3=request.vars['image3'],
+            image4=request.vars['image4'],
+            image5=request.vars['image5'],
+            image6=request.vars['image6'],
+            image7=request.vars['image7'],
+            image8=request.vars['image8'],
+            image9=request.vars['image9'],
+            image10=request.vars['image10'],
         )
         for id_categorie in request.vars['categories']:
             db.recette_has_categorie.insert(
@@ -95,6 +116,7 @@ def ajouter_recette():
         response.type = 'warning'
     '''
     return dict(
+        form = form,
         liste_ingredients=liste_ingredients,
         liste_categories=liste_categories
         )    
@@ -133,3 +155,46 @@ def supprimer_categorie():
         liste_categories=liste_categories,
 
         )
+
+
+def upload_file():
+    """
+    File upload handler for the ajax form of the plugin jquery-file-upload
+    Return the response in JSON required by the plugin
+    """
+    try:
+        # Get the file from the form
+        f = request.vars['files[]']
+         
+        # Store file
+        id = db.files.insert(doc = db.files.doc.store(f.file, f.filename))
+         
+        # Compute size of the file and update the record
+        record = db.files[id]
+        path_list = []
+        path_list.append(request.folder)
+        path_list.append('uploads')
+        path_list.append(record['doc'])
+        size =  shutil.os.path.getsize(shutil.os.path.join(*path_list))
+        File = db(db.files.id==id).select()[0]
+        db.files[id] = dict(sizeFile=size)
+        db.files[id] = dict(sessionId=response.session_id)
+         
+        res = dict(files=[{"name": str(f.filename), "size": size, "url": URL(f='download', args=[File['doc']]), "thumbnail_url": URL(f='download', args=[File['thumb']]), "delete_url": URL(f='delete_file', args=[File['doc']]), "delete_type": "DELETE" }])
+         
+        return gluon.contrib.simplejson.dumps(res, separators=(',',':'))
+
+    except:
+        return dict(message=T('Upload error'))
+ 
+ 
+def delete_file():
+    """
+    Delete an uploaded file
+    """
+    try:
+        name = request.args[0]
+        db(db.files.doc==name).delete()
+        return dict(message=T('File deleted'))
+    except:
+        return dict(message=T('Deletion error'))

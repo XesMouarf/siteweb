@@ -1,0 +1,73 @@
+{{extend 'layout.html'}}
+{{block head}}
+{{end}}
+
+{{block content}}
+<div class="container">
+	<div class="recette-wrapper">
+		{{ for rec in recette:}}
+		<div class="recette-header">
+			<div class="recette-title">
+				{{=rec['intitule']}}
+			</div>
+			<div class="recette-tags">
+				{{ for categorie in categories:}}
+					#{{=categorie['name']}}
+				{{pass}}
+				{{=rec['temps_preparation']}}
+			</div>
+			<div class="bouton-ajouter-carnet">
+				<a class="btn btn-default" href="#" role="button">Ajouter à mon carnet de recettes</a>
+			</div>
+		</div>
+		<div class="recette-header-2">
+			<div class="recette-note">
+			 Noter la recette : {{=rec['note']}}
+			</div>
+			<div class="recette-partage">
+			 Partager la recette : "boutons à la con"
+			</div>
+			<div class="recette-dl">
+			 Télécharger la recette au format PDF
+			</div>
+		</div>
+		<div class="recette-encart">
+			<div class="recette-photo">
+
+		 	</div>
+		 	<div class="recette-ingredients">
+		 	{{ for ingredient in ingredients:}}
+		 		{{=ingredient['name']}}
+		 	{{pass}}
+		 	</div>
+		 	<div class="recette-temps-prep">
+		 		Temps de préparation
+				{{=rec['temps_preparation']}}
+		 	</div>
+		 	<div class="recette-temps-cuisson">
+		 		Temps de cuisson
+		 		{{=rec['temps_cuisson']}}
+		 	</div>
+		 	<div class="recette-macro">
+		 		Macros
+		 	</div>
+		</div>
+		<div class="recette-etapes">
+			{{=rec['etapes']}}
+		</div>
+		<div class="recette-images">
+		<img src="{{=URL('static', rec['image1'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image2'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image3'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image4'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image5'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image6'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image7'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image8'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image9'])}}" height="200px" width="200px"><br/>
+		<img src="{{=URL('static', rec['image10'])}}" height="200px" width="200px"><br/>
+		</div>
+		{{pass}}
+	</div>
+</div>
+{{end}}
