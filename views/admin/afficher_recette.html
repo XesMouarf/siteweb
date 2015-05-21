@@ -1,71 +1,118 @@
 {{extend 'layout.html'}}
 {{block head}}
+  {{for rec in recette:}}
+  <script>
+  // Get context with jQuery - using jQuery's .get() method.
+  var ctx = $("#recipe{{=rec['id']}}").get(0).getContext("2d");
+  var data = [
+    {
+        value: {{=rec['proteines']}},
+        color:"#EA9999",
+        highlight: "#990000",
+        label: "Protéines"
+    },
+    {
+        value: {{=rec['glucides']}},
+        color: "#FFE599",
+        highlight: "#BF9000",
+        label: "Glucides"
+    },
+    {
+        value: {{=rec['lipides']}},
+        color: "#B4A7D6",
+        highlight: "#351C75",
+        label: "Lipides"
+    }
+];
+  // This will get the first returned node in the jQuery collection.
+  var myPieChart = new Chart(ctx).Doughnut(data);
+  </script>
+  {{pass}}
 {{end}}
 
 {{block content}}
-<div class="container">
+<div class="container-fluid recette-container">
 	<div class="recette-wrapper">
 		{{ for rec in recette:}}
-		<div class="recette-header">
-			<div class="recette-title">
+		<div class="row">
+			<div class="col-lg-4 recette-title">
 				{{=rec['intitule']}}
 			</div>
-			<div class="recette-tags">
+			<div class="col-lg-3 col-lg-offset-1 recette-tags">
 				{{ for categorie in categories:}}
 					#{{=categorie['name']}}
 				{{pass}}
-				{{=rec['temps_preparation']}}
 			</div>
-			<div class="bouton-ajouter-carnet">
-				<a class="btn btn-default" href="#" role="button">Ajouter à mon carnet de recettes</a>
+			<div class=" col-lg-4 recette-bouton-carnet">
+					<a class="btn btn-default" href="#" role="button">Ajouter à mon carnet de recettes</a>
 			</div>
 		</div>
-		<div class="recette-header-2">
-			<div class="recette-note">
-			 Noter la recette : {{=rec['note']}}
+		<div class="row">
+			<div class="col-lg-4 recette-note">
+			Noter la recette : 
+			{{for i in range(0,rec['note']):}}
+                   <span class="glyphicon glyphicon-star"></span>
+                   {{pass}}
+                   {{for i in range(rec['note'],5):}}
+                   <span class="glyphicon glyphicon-star-empty"></span>
+                   {{pass}}
+            {{pass}}
 			</div>
-			<div class="recette-partage">
+			<div class="col-lg-4 recette-partage">
 			 Partager la recette : "boutons à la con"
 			</div>
-			<div class="recette-dl">
+			<div class="col-lg-4 recette-dl">
 			 Télécharger la recette au format PDF
 			</div>
 		</div>
-		<div class="recette-encart">
-			<div class="recette-photo">
-
+		<div class="row recette-encart">
+			<div class="col-lg-3">
+				<img class="img-responsive center-block img-thumbnail" src="{{=URL('static', rec['image1'])}}">	
 		 	</div>
-		 	<div class="recette-ingredients">
+		 	<div class="col-lg-3 recette-ingredients">
+		 		<h2>Ingrédients</h2>
+		 		<table class="table table-striped table-condensed">
 		 	{{ for ingredient in ingredients:}}
-		 		{{=ingredient['name']}}
+		 			<tr><td>{{=ingredient['name']}}</td></tr>
 		 	{{pass}}
+		 		</table>
 		 	</div>
-		 	<div class="recette-temps-prep">
-		 		Temps de préparation
-				{{=rec['temps_preparation']}}
+		 	<div class="col-lg-3 recette-temps">
+			 	<div class="recette-temps-prep">
+			 		<h2>Temps de préparation</h2>
+					{{=rec['temps_preparation']}} minutes
+			 	</div>
+			 	<div class="recette-temps-cuisson">
+			 		<h2>Temps de cuisson</h2>
+			 		{{=rec['temps_cuisson']}} minutes
+			 	</div>
 		 	</div>
-		 	<div class="recette-temps-cuisson">
-		 		Temps de cuisson
-		 		{{=rec['temps_cuisson']}}
-		 	</div>
-		 	<div class="recette-macro">
-		 		Macros
+		 	<div class="col-lg-3 recette-macro">
+		 		<h2>Macros</h2>
+		 		<p><canvas id="recipe{{=rec['id']}}"></canvas></p>
 		 	</div>
 		</div>
-		<div class="recette-etapes">
-			{{=rec['etapes']}}
+		<div class="row">
+			<div class="col-lg-12 recette-etapes">
+				<h2>Etapes</h2>
+				<p>
+				{{=rec['etapes']}}
+				</p>
+			</div>
 		</div>
-		<div class="recette-images">
-		<img src="{{=URL('static', rec['image1'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image2'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image3'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image4'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image5'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image6'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image7'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image8'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image9'])}}" height="200px" width="200px"><br/>
-		<img src="{{=URL('static', rec['image10'])}}" height="200px" width="200px"><br/>
+		<div class="row">
+			<div class="col-lg-12 recette-images">
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image1'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image2'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image3'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image4'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image5'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image6'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image7'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image8'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image9'])}}"><br/>
+				<img class="img-responsive center-block"src="{{=URL('static', rec['image10'])}}"><br/>
+			</div>
 		</div>
 		{{pass}}
 	</div>

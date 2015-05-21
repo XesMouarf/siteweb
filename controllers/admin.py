@@ -54,7 +54,7 @@ def afficher_recette():
     recette = db(db.recette.id == request.args[0]).select()
     categories = db((db.categorie.id == db.recette_has_categorie.categorie) & (db.recette.id == db.recette_has_categorie.recette) & (db.recette.id == request.args[0])).select(db.categorie.name,db.categorie.id)
     ingredients = db((db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient) & (db.recette.id == request.args[0])).select(db.ingredient.name)
-    print ingredients
+    recette[0].note = 4
     return dict(
         recette = recette,
         categories = categories,
