@@ -1,4 +1,9 @@
 {{extend 'layout.html'}}
+{{block insert}}
+{{response.files.insert(20,URL('static','js/markdown.js'))}}
+{{response.files.insert(21,URL('static','js/to-markdown.js'))}}
+{{response.files.insert(22,URL('static','js/bootstrap-markdown.js'))}}
+{{end}}
 {{block head}}
 <script type="text/javascript">
 $('.add').on('click', function() {
@@ -118,58 +123,63 @@ $('.add').on('click', function() {
     <div class="form-group">
       <label for="recette_etapes" class="col-sm-2 control-label">Etapes :</label>
       <div class="col-sm-10">
-        <textarea class="text form-control" id="recette_etapes" name="etapes" type"text" value="" rows="50" placeholder="Les étapes de la recette"></textarea>
+        <textarea class="text form-control" data-provide="markdown" id="recette_etapes" name="etapes" type"text" value="" rows="50" placeholder="Les étapes de la recette"></textarea>
       </div>
     </div>
 
+    <!-- vignette -->
+    <div class="form-group">
+        <label for="recette_vignette">Vignette</label>
+        <input class="upload" id="recette_vignette" name="vignette" type="file">
+    </div>
     <!-- image1 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image1">Image n°1</label>
         <input class="upload" id="recette_image1" name="image1" type="file">
     </div>
     <!-- image2 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image2">Image n°2</label>
         <input class="upload" id="recette_image2" name="image2" type="file">
     </div>
     <!-- image3 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image3">Image n°3</label>
         <input class="upload" id="recette_image3" name="image3" type="file">
     </div>
     <!-- image4 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image4">Image n°4</label>
         <input class="upload" id="recette_image4" name="image4" type="file">
     </div>
     <!-- image5 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image5">Image n°5</label>
         <input class="upload" id="recette_image5" name="image5" type="file">
     </div>
     <!-- image6 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image6">Image n°6</label>
         <input class="upload" id="recette_image6" name="image6" type="file">
     </div>
     <!-- image7 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image7">Image n°7</label>
         <input class="upload" id="recette_image7" name="image7" type="file">
     </div>
     <!-- image8 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image8">Image n°8</label>
         <input class="upload" id="recette_image8" name="image8" type="file">
     </div>
     <!-- image9 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image9">Image n°9</label>
         <input class="upload" id="recette_image9" name="image9" type="file">
     </div>
         <!-- image10 -->
     <div class="form-group">
-        <label for="exampleInputFile">File input</label>
+        <label for="recette_image10">Image n°10</label>
         <input class="upload" id="recette_image10" name="image10" type="file">
     </div>
     <!-- Validation -->

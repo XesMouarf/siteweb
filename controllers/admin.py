@@ -31,7 +31,6 @@ def supprimer_ingredient():
         )
 
 def liste_recettes():
-    print db(db.recette).select()
     recette_has_categorie = db(
         (db.recette.id==db.recette_has_categorie.recette) & (db.categorie.id==db.recette_has_categorie.categorie)).select(groupby=db.recette_has_categorie.recette)
 
@@ -49,8 +48,7 @@ def liste_recettes():
         )
 
 def afficher_recette():
-    print request.args
-
+    
     recette = db(db.recette.id == request.args[0]).select()
     categories = db((db.categorie.id == db.recette_has_categorie.categorie) & (db.recette.id == db.recette_has_categorie.recette) & (db.recette.id == request.args[0])).select(db.categorie.name,db.categorie.id)
     ingredients = db((db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient) & (db.recette.id == request.args[0])).select(db.ingredient.name)
@@ -59,11 +57,12 @@ def afficher_recette():
         recette = recette,
         categories = categories,
         ingredients = ingredients)
+
 def ajouter_recette():
     liste_ingredients = db(db.ingredient).select()
     liste_categories = db(db.categorie).select()
     form = SQLFORM(db.recette)
-    print request.vars
+    
     if request.vars['_form'] == '_ajout_recette':
         liste_ingredients_recette = list()
         for var in request.vars:
@@ -79,6 +78,7 @@ def ajouter_recette():
             glucides=request.vars['glucides'],
             lipides=request.vars['lipides'],
             etapes=request.vars['etapes'],
+            vignette=request.vars['vignette'],
             image1=request.vars['image1'],
             image2=request.vars['image2'],
             image3=request.vars['image3'],

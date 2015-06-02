@@ -67,7 +67,7 @@
 		</div>
 		<div class="row recette-encart">
 			<div class="col-lg-3">
-				<img class="img-responsive center-block img-thumbnail" src="{{=URL('static', rec['image1'])}}">	
+				<img class="img-responsive center-block img-thumbnail" src="{{=URL('static', rec['vignette'])}}">	
 		 	</div>
 		 	<div class="col-lg-3 recette-ingredients">
 		 		<h2>Ingrédients</h2>
@@ -102,16 +102,36 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 recette-images">
+				{{if rec['image1']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image1'])}}"><br/>
+				{{pass}}
+				{{if rec['image2']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image2'])}}"><br/>
+				{{pass}}
+				{{if rec['image3']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image3'])}}"><br/>
+				{{pass}}
+				{{if rec['image4']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image4'])}}"><br/>
+				{{pass}}
+				{{if rec['image5']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image5'])}}"><br/>
+				{{pass}}
+				{{if rec['image6']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image6'])}}"><br/>
+				{{pass}}
+				{{if rec['image7']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image7'])}}"><br/>
+				{{pass}}
+				{{if rec['image8']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image8'])}}"><br/>
+				{{pass}}
+				{{if rec['image9']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image9'])}}"><br/>
+				{{pass}}
+				{{if rec['image10']:}}
 				<img class="img-responsive center-block"src="{{=URL('static', rec['image10'])}}"><br/>
+				{{pass}}
 			</div>
 		</div>
 		{{pass}}

@@ -114,6 +114,8 @@
     response.files.insert(6,URL('static','js/bootstrap.min.js'))
     response.files.insert(7,URL('static','js/chart.js'))
     }}
+    {{block insert}}
+    {{end}}
     {{response.include_files()}}
 
     {{block head}}
