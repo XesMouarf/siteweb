@@ -5,16 +5,32 @@
 {{response.files.insert(22,URL('static','js/bootstrap-markdown.js'))}}
 {{end}}
 {{block head}}
+
+<!-- fonction ajout ingrédient -->
 <script type="text/javascript">
 $('.add').on('click', function() {
     var options = $('#select_ingredients option:selected').sort().clone();
-
-    console.log(options);
     for (i=0;i<options.length;i++){
-      $('#ingredients').append('<div class="form-group"><label class="col-sm-2 control-label">'+options[i]['innerText']+' :</label><div class="col-sm-10"><input class="string form-control" name="ingredients['+options[i]['value']+']" type="text" value="" placeholder="Quantité"></div></div>');
+      $('#ingredients').append('<div id="'+options[i]["value"]+'" class="form-group"><label class="col-sm-2 control-label"><a href=javascript:del('+options[i]["value"]+')><span class="glyphicon glyphicon-minus"></span></a>'+options[i]['innerText']+' :</label><div class="col-sm-10"><input class="string form-control" name="ingredients['+options[i]['value']+']" type="text" value="" placeholder="Quantité"></div></div>');
     }
 
 });
+</script>
+
+<!-- fonction suppression ingrédient -->
+<script type="text/javascript">
+function del(value) {
+    $('#'+value).remove();
+    var childs = $('#ingredients').children();
+    $('#ingredients').children().remove();
+
+    childs.each(function(index, element){
+        var i = index + 1;
+        var text = $(element).children('.control-label').text();
+        $('#ingredients').append('<div id="'+i+'" class="form-group"><label class="col-sm-2 control-label"><a href=javascript:del('+i+')><span class="glyphicon glyphicon-minus"></span></a>'+text+'</label><div class="col-sm-10"><input class="string form-control" name="ingredients['+i+']" type="text" value="" placeholder="Quantité"></div></div>');
+    })
+        
+}
 </script>
 {{end}}
 {{block content}}
@@ -61,15 +77,16 @@ $('.add').on('click', function() {
         </select>
       </div>
       <div class="col-sm-1">
-      <button type="button" class="add btn btn-default">=></button>
-      <button type="button" class="del btn btn-default"><=</button>
+        <button type="button" class="add btn btn-default">=></button>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-12">
+      <hr>
         <div id="ingredients">
 
         </div>
       </div>
     </div>
+    <hr>
     <!-- tmps preparation -->
     <div class="form-group">
         <label for="recette_tmp_prep" class="col-sm-2 control-label">Temps de préparation :</label>
