@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+from gluon.contrib.markdown.markdown2 import markdown
+
 def index():
     return dict()
 
-def liste_ingredients():
+def ingredients():
+    for i in request.vars:
+        db(db.ingredient.id == int(i)).delete()
     liste_ingredients = db(db.ingredient).select()
     return dict(
         liste_ingredients=liste_ingredients,
@@ -17,17 +21,37 @@ def ajouter_ingredient():
     elif form.errors:
         response.flash = 'Le formulaire contient des erreurs'
         response.type = 'danger'
-    else:
-        response.flash = 'Merci de bien vouloir remplir le formulaire'
-        response.type = 'warning'
    
     return dict(form=form)
 
-def supprimer_ingredient():
-    liste_ingredients = db(db.ingredient).select()
+def modifier_ingredient():
+    form = SQLFORM(db.ingredient)
 
+    # vérification de l'argument
+    try:
+        _id = int(request.args[0])
+    except:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+    if _id <= 0:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+
+    ingredient = db(db.ingredient.id == _id).select()
+    try:
+        ingredient = ingredient[0]
+    except:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+
+    if request.vars['_form_name'] == 'modif':
+        ingredient.update_record(
+            name=request.vars['name'],
+            kcals=request.vars['kcals'],
+            proteines=request.vars['proteines'],
+            lipides=request.vars['lipides'],
+            glucides=request.vars['glucides'])
+        redirect(URL(c='admin',f='ingredients'))    
     return dict(
-        liste_ingredients=liste_ingredients,
+        form=form,
+        ingredient = ingredient
         )
 
 def liste_recettes():
@@ -53,6 +77,7 @@ def afficher_recette():
     categories = db((db.categorie.id == db.recette_has_categorie.categorie) & (db.recette.id == db.recette_has_categorie.recette) & (db.recette.id == request.args[0])).select(db.categorie.name,db.categorie.id)
     ingredients = db((db.recette.id==db.recette_has_ingredient.recette) & (db.ingredient.id==db.recette_has_ingredient.ingredient) & (db.recette.id == request.args[0])).select(db.ingredient.name)
     recette[0].note = 4
+    recette[0].etapes = XML(markdown(recette[0].etapes))
     return dict(
         recette = recette,
         categories = categories,

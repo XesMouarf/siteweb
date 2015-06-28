@@ -1,0 +1,62 @@
+{{extend 'layout.html'}}
+{{block content}}
+<div class="container">
+{{if response.flash:}}
+<div class="alert alert-{{=response.type}} fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <strong>{{=response.flash}}</strong>
+</div>
+{{pass}}
+<div class="row">
+  <div class="col-lg-12">
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Admin</a></li>
+      <li class="active">Ingrédients</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1>Ingrédients</h1>
+  </div>
+</div>
+<form action="#" enctype="multipart/form-data" method="post" role="form">
+<div class="row">
+  <div class="col-lg-12">
+    <a href="{{=URL(c='admin',f='ajouter_ingredient')}}"><button type="button" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Ajouter
+    </button></a>
+    <button type="submit"  class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer
+    </button>
+  </div>
+</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+        <th>Nom</th>
+        <th>kCals</th>
+        <th>Protéines</th>
+        <th>Glucides</th>
+        <th>Lipides</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{for ingredient in liste_ingredients:}}
+      <tr>
+        <td><input type="checkbox" value="{{=ingredient.id}}" name="{{=ingredient.id}}"></td>
+        <td><a href="{{=URL(c='admin',f='modifier_ingredient', args=[ingredient.id])}}">{{=ingredient.name}}</a></td>
+        <td>{{=ingredient.kcals}}</td>
+        <td>{{=ingredient.proteines}}</td>
+        <td>{{=ingredient.glucides}}</td>
+        <td>{{=ingredient.lipides}}</td>
+      </tr>
+      {{pass}}
+    </tbody>
+  </table>
+  </form>
+</div>
+	{{end}}
