@@ -13,21 +13,23 @@
       <li><a href="{{=URL(c='index',f='index')}}">Home</a></li>
       <li><a href="{{=URL(c='admin',f='index')}}">Admin</a></li>
       <li><a href="{{=URL(c='admin',f='categories')}}">Catégories</a></li>
-      <li class="active">Ajouter catégorie</li>
+      <li class="active">Modifier catégorie</li>
     </ol>
   </div>
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <h1>Ajouter une catégorie</h1>
+    <h1>Modifier un catégorie</h1>
   </div>
 </div>
-  <form action="#" enctype="multipart/form-data" method="post" class="form-horizontal" role="form">
 
+  <form action="#" enctype="multipart/form-data" method="post" class="form-horizontal" role="form">
+    <input type='hidden' name='id' value='{{=categorie.id}}'/>
+    <input type='hidden' name='_form_name' value='modif'/>
   	<div class="form-group">
   	    <label for="ingredient_name" class="col-sm-2 control-label">Nom :</label>
   	    <div class="col-sm-10">
-  	      <input class="string form-control" id="ingredient_name" name="name" type="text" value="" placeholder="Nom de la catégorie">
+  	      <input class="string form-control" id="ingredient_name" name="name" type="text" value="{{=categorie.name}}" placeholder="Nom de la catégorie">
   	    </div>
     	</div>	  	  	  	
     <div class="form-group">

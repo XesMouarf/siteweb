@@ -46,20 +46,21 @@ function del(value) {
     <ol class="breadcrumb">
       <li><a href="{{=URL(c='index',f='index')}}">Home</a></li>
       <li><a href="{{=URL(c='admin',f='index')}}">Admin</a></li>
-      <li><a href="{{=URL(c='admin',f='ingredients')}}">Ingrédients</a></li>
-      <li class="active">Ajouter ingrédient</li>
+      <li><a href="{{=URL(c='admin',f='recettes')}}">Recettes</a></li>
+      <li class="active">Modifier recette</li>
     </ol>
   </div>
 </div>
-    <h1> Ajouter une recette</h1>
+    <h1>Modifier une recette</h1>
     
     <form action="#" enctype="multipart/form-data" method="post" class="form-horizontal" role="form">
-    <input type="hidden" name="_form" value="_ajout_recette">
+    <input type="hidden" name="_form_name" value="modif">
+    <input type='hidden' name='id' value='{{=recette.id}}'/>
     <!-- intitulé -->
     <div class="form-group">
         <label for="recette_intitule" class="col-sm-2 control-label">Intitulé :</label>
         <div class="col-sm-10">
-          <input class="string form-control" id="recette_intitule" name="intitule" type="text" value="" placeholder="Intitulé de la recette">
+          <input class="string form-control" id="recette_intitule" name="intitule" type="text" value="{{=recette.intitule}}" placeholder="Intitulé de la recette">
         </div>
     </div>
     <!-- catégories -->
@@ -98,56 +99,56 @@ function del(value) {
     <div class="form-group">
         <label for="recette_tmp_prep" class="col-sm-2 control-label">Temps de préparation :</label>
         <div class="col-sm-10">
-          <input class="string form-control" id="recette_tmp_prep" name="temps_preparation" type="text" value="" placeholder="Temps de préparation de la recette">
+          <input class="string form-control" id="recette_tmp_prep" name="temps_preparation" type="text" value="{{=recette.temps_preparation}}" placeholder="Temps de préparation de la recette">
         </div>
     </div>
     <!-- tmps cuisson -->
     <div class="form-group">
         <label for="recette_tmp_cuisson" class="col-sm-2 control-label">Temps de cuisson :</label>
         <div class="col-sm-10">
-          <input class="string form-control" id="recette_tmp_cuisson" name="temps_cuisson" type="text" value="" placeholder="Temps de cuisson de la recette">
+          <input class="string form-control" id="recette_tmp_cuisson" name="temps_cuisson" type="text" value="{{=recette.temps_cuisson}}" placeholder="Temps de cuisson de la recette">
         </div>
     </div>
     <!-- tmps autre -->
     <div class="form-group">
         <label for="recette_tmp_autre" class="col-sm-2 control-label">Temps autre :</label>
         <div class="col-sm-10">
-          <input class="string form-control" id="recette_tmp_autre" name="temps_autre" type="text" value="" placeholder="Autre temps de la recette">
+          <input class="string form-control" id="recette_tmp_autre" name="temps_autre" type="text" value="{{=recette.temps_autre}}" placeholder="Autre temps de la recette">
         </div>
     </div>
     <!-- kcals -->
     <div class="form-group">
         <label for="recette_kcals" class="col-sm-2 control-label">Kcals :</label>
         <div class="col-sm-10">
-          <input class="integer form-control" id="recette_kcals" name="kcals" type="number" value="" placeholder="0">
+          <input class="integer form-control" id="recette_kcals" name="kcals" type="number" value="{{=recette.kcals}}" placeholder="0">
         </div>
     </div>
     <!-- protéines -->
     <div class="form-group">
         <label for="recette_proteines" class="col-sm-2 control-label">Protéines :</label>
         <div class="col-sm-10">
-          <input class="double form-control" id="recette_proteines" name="proteines" type="number" value="" placeholder="0">
+          <input class="double form-control" id="recette_proteines" name="proteines" type="number" value="{{=recette.proteines}}" placeholder="0">
         </div>
     </div>
     <!-- glucides -->
     <div class="form-group">
         <label for="recette_glucides" class="col-sm-2 control-label">Glucides :</label>
         <div class="col-sm-10">
-          <input class="double form-control" id="recette_glucides" name="glucides" type="number" value="" placeholder="0">
+          <input class="double form-control" id="recette_glucides" name="glucides" type="number" value="{{=recette.glucides}}" placeholder="0">
         </div>
     </div>
     <!-- lipides -->
     <div class="form-group">
         <label for="recette_lipides" class="col-sm-2 control-label">Lipides :</label>
         <div class="col-sm-10">
-          <input class="double form-control" id="recette_lipides" name="lipides" type="number" value="" placeholder="0">
+          <input class="double form-control" id="recette_lipides" name="lipides" type="number" value="{{=recette.lipides}}" placeholder="0">
         </div>
     </div>
     <!-- etapes -->
     <div class="form-group">
       <label for="recette_etapes" class="col-sm-2 control-label">Etapes :</label>
       <div class="col-sm-10">
-        <textarea class="text form-control" data-provide="markdown" id="recette_etapes" name="etapes" type"text" value="" rows="50" placeholder="Les étapes de la recette"></textarea>
+        <textarea class="text form-control" data-provide="markdown" id="recette_etapes" name="etapes" type"text" value="{{recette.etapes}}" rows="50" placeholder="Les étapes de la recette"></textarea>
       </div>
     </div>
 

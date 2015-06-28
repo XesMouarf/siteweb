@@ -54,7 +54,7 @@ def modifier_ingredient():
         ingredient = ingredient
         )
 
-def liste_recettes():
+def recettes():
     recette_has_categorie = db(
         (db.recette.id==db.recette_has_categorie.recette) & (db.categorie.id==db.recette_has_categorie.categorie)).select(groupby=db.recette_has_categorie.recette)
 
@@ -129,32 +129,83 @@ def ajouter_recette():
                 ingredient=id_ingredient,
                 quantite=ingredient[ingredient_key]
             )
-    '''
-    if form.process().accepted:
-        response.flash = "La recette a bien été ajouté en BDD"
-        response.type = 'success'
-    elif form.errors:
-        response.flash = 'Le formulaire contient des erreurs'
-        response.type = 'danger'
-    else:
-        response.flash = 'Merci de bien vouloir remplir le formulaire'
-        response.type = 'warning'
-    '''
+
     return dict(
         form = form,
         liste_ingredients=liste_ingredients,
         liste_categories=liste_categories
-        )    
-
-def supprimer_recette():
-    liste_recettes = db(db.recette).select()
-
-    return dict(
-        liste_recettes=liste_recettes,
-
         )
 
-def liste_categories():
+def modifier_recette():
+    liste_ingredients = db(db.ingredient).select()
+    liste_categories = db(db.categorie).select()
+    form = SQLFORM(db.recette)
+    # vérification de l'argument
+    try:
+        _id = int(request.args[0])
+    except:
+        raise HTTP(400, "La recette n'existe pas Kappa")
+    if _id <= 0:
+        raise HTTP(400, "La recette n'existe pas Kappa")
+
+    recette = db(db.recette.id == _id).select()
+    try:
+        recette = recette[0]
+    except:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+
+    if request.vars['_form_name'] == 'modif':
+        liste_ingredients_recette = list()
+        for var in request.vars:
+            if var.startswith('ingredient'):
+                liste_ingredients_recette.append({var:request.vars[var]})
+        id_recette = db.recette.update_record(
+            id = request.vars['id'],
+            intitule=request.vars['intitule'],
+            temps_preparation=request.vars['temps_preparation'],
+            temps_cuisson=request.vars['temps_cuisson'],
+            temps_autre=request.vars['temps_autre'],
+            kcals=request.vars['kcals'],
+            proteines=request.vars['proteines'],
+            glucides=request.vars['glucides'],
+            lipides=request.vars['lipides'],
+            etapes=request.vars['etapes'],
+            vignette=request.vars['vignette'],
+            image1=request.vars['image1'],
+            image2=request.vars['image2'],
+            image3=request.vars['image3'],
+            image4=request.vars['image4'],
+            image5=request.vars['image5'],
+            image6=request.vars['image6'],
+            image7=request.vars['image7'],
+            image8=request.vars['image8'],
+            image9=request.vars['image9'],
+            image10=request.vars['image10'],
+        )
+        for id_categorie in request.vars['categories']:
+            db.recette_has_categorie.insert(
+                recette=id_recette,
+                categorie=id_categorie
+            )
+        for ingredient in liste_ingredients_recette:
+            print ingredient
+            ingredient_key = ingredient.keys()[0]
+            id_ingredient = int(ingredient_key.split('[')[1].split(']')[0])
+            db.recette_has_ingredient.insert(
+                recette=id_recette,
+                ingredient=id_ingredient,
+                quantite=ingredient[ingredient_key]
+            )
+
+    return dict(
+        form = form,
+        recette = recette,
+        liste_ingredients=liste_ingredients,
+        liste_categories=liste_categories
+        )    
+def categories():
+    for i in request.vars:
+        db(db.categorie.id == int(i)).delete()
     liste_categories = db(db.categorie).select()
     return dict(
         liste_categories=liste_categories,
@@ -162,24 +213,39 @@ def liste_categories():
 
 def ajouter_categorie():
     form = SQLFORM(db.categorie)
-    form.next = URL(c='admin',f='liste_categories')
+    form.next = URL(c='admin',f='categories')
     if form.process().accepted:
         response.flash = "La catégorie a bien été ajouté en BDD"
         response.type = 'success'
     elif form.errors:
         response.flash = 'Le formulaire contient des erreurs'
         response.type = 'danger'
-    else:
-        response.flash = 'Merci de bien vouloir remplir le formulaire'
-        response.type = 'warning'
+
     return dict(form=form)        
 
-def supprimer_categorie():
-    liste_categories = db(db.categorie).select()
+def modifier_categorie():
+    form = SQLFORM(db.categorie)
+
+    # vérification de l'argument
+    try:
+        _id = int(request.args[0])
+    except:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+    if _id <= 0:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+
+    categorie = db(db.categorie.id == _id).select()
+    try:
+        categorie = categorie[0]
+    except:
+        raise HTTP(400, "L'ingrédient n'existe pas Kappa")
+
+    if request.vars['_form_name'] == 'modif':
+        categorie.update_record(
+            name=request.vars['name'])
+        redirect(URL(c='admin',f='categories'))
 
     return dict(
-        liste_categories=liste_categories,
-
+        form=form,
+        categorie = categorie
         )
-
-
