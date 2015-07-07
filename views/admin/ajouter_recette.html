@@ -3,6 +3,8 @@
 {{response.files.insert(20,URL('static','js/markdown.js'))}}
 {{response.files.insert(21,URL('static','js/to-markdown.js'))}}
 {{response.files.insert(22,URL('static','js/bootstrap-markdown.js'))}}
+{{response.files.insert(23,URL('static','js/chosen.jquery.min.js'))}}
+{{response.files.insert(24,URL('static','css/chosen.min.css'))}}
 {{end}}
 {{block head}}
 
@@ -16,7 +18,12 @@ $('.add').on('click', function() {
 
 });
 </script>
-
+<script type="text/javascript">
+window.onload = function(){
+    $(".chosen-categorie").chosen();
+    $('.chosen-ingredients').chosen();
+}
+</script>
 <!-- fonction suppression ingrédient -->
 <script type="text/javascript">
 function del(value) {
@@ -46,8 +53,8 @@ function del(value) {
     <ol class="breadcrumb">
       <li><a href="{{=URL(c='index',f='index')}}">Home</a></li>
       <li><a href="{{=URL(c='admin',f='index')}}">Admin</a></li>
-      <li><a href="{{=URL(c='admin',f='ingredients')}}">Ingrédients</a></li>
-      <li class="active">Ajouter ingrédient</li>
+      <li><a href="{{=URL(c='admin',f='recettes')}}">Recette</a></li>
+      <li class="active">Ajouter une recette</li>
     </ol>
   </div>
 </div>
@@ -66,7 +73,7 @@ function del(value) {
     <div class="form-group">
       <label for="recettes-categories" class="col-sm-2 control-label">Catégories :</label>
       <div class="col-sm-10">
-        <select name="categories" multiple class="form-control">
+        <select name="categories" multiple class="form-control chosen-categorie">
         {{for categorie in liste_categories:}}
           <option value='{{=categorie.id}}'>{{=categorie.name}}</option>
         {{pass}}
@@ -77,7 +84,7 @@ function del(value) {
     <div class="form-group">
       <label for="recettes-ingredients" class="col-sm-2 control-label">Ingrédients :</label>
       <div class="col-sm-4">
-        <select multiple id="select_ingredients" class="form-control">
+        <select multiple id="select_ingredients" class="form-control chosen-ingredients">
         {{for ingredient in liste_ingredients:}}
           <option value='{{=ingredient.id}}'>{{=ingredient.name}}</option>
         {{pass}}
