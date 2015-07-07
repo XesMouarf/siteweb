@@ -2,8 +2,30 @@
 {{block head}}
 <!-- fonction calcul kcals -->
 <script type="text/javascript">
-
+window.onload = function(){
+  var bool = '{{=ingredient.hasmacro}}';
+  if (bool == 'True'){
+    $('.macros').show();
+    $('#ingredient_hasmacro').prop('checked', true);
+  }
+  else {
+    $('.macros').hide();
+    $('#ingredient_hasmacro').prop('checked', false);
+  }
+}
 </script>
+<!-- fcntion apparaitre disparaitre -->
+<script type="text/javascript">
+function tumevoistumevoispas(){
+  if ($('#ingredient_hasmacro').is(":checked")){
+    $('.macros').show();
+  }
+  else {
+    $('.macros').hide();
+  }
+}
+</script>
+
 {{end}}
 
 {{block content}}
@@ -37,31 +59,187 @@
   	    <div class="col-sm-10">
   	      <input class="string form-control" id="aliments_name" name="name" type="text" value="{{=ingredient.name}}" placeholder="Nom de l'aliment">
   	    </div>
-    	</div>
-  	<div class="form-group">
+    </div>
+    <div class="form-group">
+      <label for="ingredient_hasmacro" class="col-sm-2 control-label">Has macro ?</label>
+      <div class="col-sm-10">
+        <input class="boolean" onClick="javascript:tumevoistumevoispas()" id="ingredient_hasmacro" name="hasmacro" type="checkbox" value="on">
+      </div>
+    </div>
+  	<div class="form-group macros">
   	    <label for="aliments_kcals" class="col-sm-2 control-label">Kcals :</label>
   	    <div class="col-sm-10">
   	      <input class="double form-control" id="aliments_kcals" name="kcals" type="number" value="{{=ingredient.kcals}}" step="any" placeholder="0">
   	    </div>
-    	</div>
-  	<div class="form-group">
+    </div>
+  	<div class="form-group macros">
   	    <label for="aliments_proteines" class="col-sm-2 control-label">Protéines :</label>
   	    <div class="col-sm-10">
   	      <input class="double form-control" id="aliments_proteines" name="proteines" type="number" value="{{=ingredient.proteines}}" step="any" placeholder="0">
   	    </div>
-    	</div>
-  	<div class="form-group">
+    </div>
+  	<div class="form-group macros">
   	    <label for="aliments_glucides" class="col-sm-2 control-label">Glucides :</label>
   	    <div class="col-sm-10">
   	      <input class="double form-control" id="aliments_glucides" name="glucides" type="number" value="{{=ingredient.glucides}}" step="any" placeholder="0">
   	    </div>
-    	</div>
-  	<div class="form-group">
+    </div>
+  	<div class="form-group macros">
   	    <label for="aliments_lipides" class="col-sm-2 control-label">Lipides :</label>
   	    <div class="col-sm-10">
   	      <input class="double form-control" id="aliments_lipides" name="lipides" type="number" value="{{=ingredient.lipides}}" step="any" placeholder="0">
   	    </div>
-    	</div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_sodium" class="col-sm-2 control-label">Sodium :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_sodium" name="sodium" type="number" value="{{=ingredient.sodium}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_magnesium" class="col-sm-2 control-label">Magnesium :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_magnesium" name="magnesium" type="number" value="{{=ingredient.magnesium}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_phosphore" class="col-sm-2 control-label">Phosphore :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_phosphore" name="phosphore" type="number" value="{{=ingredient.phosphore}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_potasium" class="col-sm-2 control-label">Potasium :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_potasium" name="potasium" type="number" value="{{=ingredient.potasium}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_calcium" class="col-sm-2 control-label">Calcium :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_calcium" name="calcium" type="number" value="{{=ingredient.calcium}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_maganese" class="col-sm-2 control-label">Maganese :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_maganese" name="maganese" type="number" value="{{=ingredient.maganese}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_fer" class="col-sm-2 control-label">Fer :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_fer" name="fer" type="number" value="{{=ingredient.fer}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_cuivre" class="col-sm-2 control-label">Cuivre :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_cuivre" name="cuivre" type="number" value="{{=ingredient.cuivre}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_zinc" class="col-sm-2 control-label">Zinc :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_zinc" name="zinc" type="number" value="{{=ingredient.zinc}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_selenium" class="col-sm-2 control-label">Selenium :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_selenium" name="selenium" type="number" value="{{=ingredient.selenium}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_iode" class="col-sm-2 control-label">Iode :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_iode" name="iode" type="number" value="{{=ingredient.iode}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_amidon" class="col-sm-2 control-label">Amidon :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_amidon" name="amidon" type="number" value="{{=ingredient.amidon}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_fibre" class="col-sm-2 control-label">Fibre :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_fibre" name="fibre" type="number" value="{{=ingredient.fibre}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_d" class="col-sm-2 control-label">Vitamine D :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_d" name="vitamine_d" type="number" value="{{=ingredient.vitamine_d}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_e" class="col-sm-2 control-label">Vitamine E :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_e" name="vitamine_e" type="number" value="{{=ingredient.vitamine_e}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_k1" class="col-sm-2 control-label">Vitamine K1 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_k1" name="vitamine_k1" type="number" value="{{=ingredient.vitamine_k1}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_k2" class="col-sm-2 control-label">Vitamine K2 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_k2" name="vitamine_k2" type="number" value="{{=ingredient.vitamine_k2}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_c" class="col-sm-2 control-label">Vitamine C :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_c" name="vitamine_c" type="number" value="{{=ingredient.vitamine_c}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b1" class="col-sm-2 control-label">Vitamine B1 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b1" name="vitamine_b1" type="number" value="{{=ingredient.vitamine_b1}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b2" class="col-sm-2 control-label">Vitamine B2 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b2" name="vitamine_b2" type="number" value="{{=ingredient.vitamine_b2}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b3" class="col-sm-2 control-label">Vitamine B3 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b3" name="vitamine_b3" type="number" value="{{=ingredient.vitamine_b3}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b5" class="col-sm-2 control-label">Vitamine B5 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b5" name="vitamine_b5" type="number" value="{{=ingredient.vitamine_b5}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b6" class="col-sm-2 control-label">Vitamine B6 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b6" name="vitamine_b6" type="number" value="{{=ingredient.vitamine_b6}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b12" class="col-sm-2 control-label">Vitamine B12 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b12" name="vitamine_b12" type="number" value="{{=ingredient.vitamine_b12}}" step="any" placeholder="0">
+        </div>
+    </div>
+    <div class="form-group macros">
+        <label for="aliments_vitamine_b9" class="col-sm-2 control-label">Vitamine B9 :</label>
+        <div class="col-sm-10">
+          <input class="double form-control" id="aliments_vitamine_b9" name="vitamine_b9" type="number" value="{{=ingredient.vitamine_b9}}" step="any" placeholder="0">
+        </div>
+    </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Valider</button>
